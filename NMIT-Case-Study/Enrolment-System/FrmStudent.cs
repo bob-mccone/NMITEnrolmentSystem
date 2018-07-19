@@ -1,0 +1,65 @@
+﻿// Form student file
+// Usings
+using System;
+using System.Windows.Forms;
+
+// Project name
+namespace Enrolment_System
+{
+    // Public partial class, meaning another file with additional code, Frm student inherits from form class
+    public partial class FrmStudent : Form
+    {
+        // Declaring a member variable called _Student of type class student, as this is a class type it is a reference variable and allocates enough memory to hold an address to an object, is null unless instantiated
+        private ClsStudent _Student;
+
+        // Form constructor
+        public FrmStudent()
+        {
+            InitializeComponent();
+        }
+
+        // Display FrmStudent
+        public DialogResult ShowDialog(ClsStudent prStudent)
+        {
+            // Creating and storing the parameter value in our member variable
+            _Student = prStudent;
+            // Calling the update display method so it will populate the form
+            UpdateDisplay();
+            // Returnung the values to the form and display them
+            return ShowDialog();
+        }
+
+        // Update display method
+        private void UpdateDisplay()
+        {
+            // Thie item in the text box is getting stored into the member variable in our class file and so on, in this case the ID variable
+            TxtID.Text = _Student.ID;
+            TxtName.Text = _Student.Name;
+            DtpDOB.Value = _Student.DOB;
+            // As balance is a numeric we have to convert it to a string before we display it
+            TxtBalance.Text = Convert.ToString(_Student.Balance);
+            // Assigning a true or false to the ID of a student, if the ID box is empty we can edit it, otherwise it becomes read only
+            TxtID.Enabled = String.IsNullOrEmpty(_Student.ID);
+        }
+
+        // Button ok method
+        private void BtnOK_Click(object sender, EventArgs e)
+        {
+            // When the user clicks on ok it assigns the contents of the textboxes on the form to the student object properties
+            _Student.ID = TxtID.Text;
+            _Student.Name = TxtName.Text;
+            _Student.DOB = DtpDOB.Value;
+            // As balance is a numeric we need to convert it back
+            _Student.Balance = Convert.ToDecimal(TxtBalance.Text);
+            // Setting the dialog result to ok, this closes the form and the show dialog method to return ok to the caller
+            DialogResult = DialogResult.OK;
+        }
+
+        // Button cancel method
+        private void BtnCancel_Click(object sender, EventArgs e)
+        {
+            // When user clicks on cancel it cancels the operation without storing any data and returns cancel to the caller in the show dialog method
+            DialogResult = DialogResult.Cancel;
+        }
+    }
+}
