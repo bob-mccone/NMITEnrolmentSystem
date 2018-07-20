@@ -20,14 +20,16 @@ namespace Enrolment_System
         }
 
         // Display FrmStudent
-        public DialogResult ShowDialog(ClsStudent prStudent)
+        // V3, Show dialog now returns a boolinstead of dialog result, as ClsMOEStudent and ClsInternationalStudent are calling show dialog we don't want classes to concern themselves with windows specific items, change is good style
+        public bool ShowDialog(ClsStudent prStudent)
         {
             // Creating and storing the parameter value in our member variable
             _Student = prStudent;
             // Calling the update display method so it will populate the form
             UpdateDisplay();
             // Returnung the values to the form and display them
-            return ShowDialog();
+            // V3, now just returns a bool
+            return ShowDialog() == DialogResult.OK;
         }
 
         // Update display method

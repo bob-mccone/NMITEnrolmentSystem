@@ -11,6 +11,16 @@ namespace Enrolment_System
     // Making ClsMOEStudent inherit from ClsStudent as we inherited the forms and ClsMOEStudent needs that info
     class ClsMOEStudent : ClsStudent
     {
+        // Private member variable, make it static so there is only one form for all instances of ClsMOEStudent created
+        private static FrmMOEStudent _Form = new FrmMOEStudent();
+
+        // Overriding the abstract method from ClsStudent
+        public override bool ViewEdit()
+        {
+            // Return MOE student form
+            return _Form.ShowDialog(this);
+        }
+
         // Member variables exclusive to MOE students
         private decimal _LoanAmount;
         private bool _FullTime;

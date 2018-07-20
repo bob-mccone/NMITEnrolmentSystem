@@ -11,6 +11,15 @@ namespace Enrolment_System
     // Making ClsInternationalStudent inherit from ClsStudent as we inherited the forms and ClsInternationalStudent needs that info
     class ClsInternationalStudent : ClsStudent
     {
+        // Private member variable, make it static so there is only one form for all instances of ClsInternationalStudent created
+        private static FrmInternationalStudent _Form = new FrmInternationalStudent();
+
+        // Overriding the abstract method from ClsStudent
+        public override bool ViewEdit()
+        {
+            // Return international student form
+            return _Form.ShowDialog(this);
+        }
         // Member variables exclusive to international students
         private string _Country;
         private float _IELTS;

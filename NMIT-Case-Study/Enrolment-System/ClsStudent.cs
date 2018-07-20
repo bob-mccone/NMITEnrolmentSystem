@@ -9,6 +9,24 @@ namespace Enrolment_System
     // V2 edit, this is now abstract, basically there are no ClsStudent objects
     public abstract class ClsStudent
     {
+        // Setting the variables in the combo box, we are creating an array of strings
+        // V3 edit, moving from form main to reduce coupling, make it public static and readonly because pubic variables are a no-no in object oriented programing, also we drop the _ prefix
+        public static readonly string[] StudentType = { "MOE (local)", "International" };
+        // Static factory method, static methods are always accessible, its job is to return an MOE student if choice was 0, otherwise an international student
+        public static ClsStudent NewStudent(int prChoice)
+        {
+            // If choice was 0
+            if (prChoice == 0)
+                // Create an MOE student
+                return new ClsMOEStudent();
+            else
+                // Else create an international student
+                return new ClsInternationalStudent();
+        }
+
+        // Public abstract method, this returns a boolean or true/false as a signal of whether editing was successful, abstract methods don't have code
+        public abstract bool ViewEdit();
+        
         // Variables
         private string _ID;
         private string _Name;

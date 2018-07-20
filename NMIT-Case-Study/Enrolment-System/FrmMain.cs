@@ -11,22 +11,15 @@ namespace Enrolment_System
     {
         // Declaring a member variable called _Student of type class student, as this is a class type it is a reference variable and allocates enough memory to hold an address to an object, is null unless instantiated
         private ClsStudent _Student;
-        // Declaring a member variable called _StudentForm of type form student, as this is a class type it is a reference variable and allocates enough memory to hold an address to an object, is null unless instantiated, new means it instantiates a new form object
-        // V2 edit: we no longer generate a student form as it doesn't open due to having MOE and interantional form for students
-        private FrmStudent _StudentForm;
-        // MOE student variable
-        private FrmStudent _MOEStudentForm = new FrmMOEStudent();
-        // Internation student variable
-        private FrmStudent _IntStudentForm = new FrmInternationalStudent();
-        // Setting the variables in the combo box, we are creating an array of strings
-        private string[] _StudentType = { "MOE (local)", "International" };
-        
+        // V3 edit, no longer need the student form variables as they are npw handeled by the appripriate classes, student type/combo box is now handeled by ClsStudent
+
         // Form constructor
         public FrmMain()
         {
             InitializeComponent();
             // Initialise the combo box
-            CboStudentType.DataSource = _StudentType;
+            // V3 edit, this is now handeled by ClsStudent
+            CboStudentType.DataSource = ClsStudent.StudentType;
             CboStudentType.SelectedIndex = 0;
         }
         // Button close method
@@ -44,11 +37,14 @@ namespace Enrolment_System
         }
 
         // Button edit student method
-        private void EditStudent()
+        // V3 edit, this is now accepting a student parameter, it assigns the new student to the member variable _Student if it is not null, also stops creating students when user clicks cancel
+        private void EditStudent(ClsStudent prStudent)
         {
             // if _student isn't null (empty) and user clicked on ok in the student form
-            if (_Student != null && _StudentForm.ShowDialog(_Student) == DialogResult.OK)
+            if (prStudent != null && prStudent.ViewEdit())
             {
+                // Assign prStudent as the _Student
+                _Student = prStudent;
                 // Display student details on the main form
                 LblStudentDetails.Text = "Student:\n" + _Student.ToString();
             }
@@ -61,7 +57,7 @@ namespace Enrolment_System
             if (_Student != null)
             {
                 // Calling edit student method
-                EditStudent();
+                EditStudent(_Student);
             }
             else
             {
@@ -84,23 +80,11 @@ namespace Enrolment_System
         // Create student method
         private void CreateStudent()
         {
-            // If first/default option is selected
-            if (CboStudentType.SelectedIndex == 0)
-            {
-                // Open MOE student form
-                _StudentForm = _MOEStudentForm;
-                // Instantiate the ClsMOEStudent, no longer need the ClsStudent anymore
-                _Student = new ClsMOEStudent();
-            }
-            else
-            {
-                // Else open international student form
-                _StudentForm = _IntStudentForm;
-                // Instantiate the ClsInternationalStudent, no longer need the ClsStudent anymore
-                _Student = new ClsInternationalStudent();
-            }
+            // V3 edit, since the responsibility of creating the appropriate student and form is now done by the student classes it is no longer here
+            // We pass the index user choice to the new factory method in ClsStudent, then pass the created student to the edit method
+            ClsStudent lcStudent = ClsStudent.NewStudent(CboStudentType.SelectedIndex);
             // Calling edit student that opens the student form
-            EditStudent();
+            EditStudent(lcStudent);
         }
     }
 }
