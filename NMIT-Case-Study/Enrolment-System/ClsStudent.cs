@@ -6,7 +6,8 @@ using System;
 namespace Enrolment_System
 {
     // public class class student
-    public class ClsStudent
+    // V2 edit, this is now abstract, basically there are no ClsStudent objects
+    public abstract class ClsStudent
     {
         // Variables
         private string _ID;

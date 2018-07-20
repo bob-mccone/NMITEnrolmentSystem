@@ -45,12 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClsInternationalStudent.cs" />
+    <Compile Include="ClsMOEStudent.cs" />
     <Compile Include="ClsStudent.cs" />
+    <Compile Include="FrmInternationalStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInternationalStudent.Designer.cs">
+      <DependentUpon>FrmInternationalStudent.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMOEStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMOEStudent.Designer.cs">
+      <DependentUpon>FrmMOEStudent.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmStudent.cs">
       <SubType>Form</SubType>
@@ -60,8 +74,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmInternationalStudent.resx">
+      <DependentUpon>FrmInternationalStudent.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMOEStudent.resx">
+      <DependentUpon>FrmMOEStudent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmStudent.resx">
       <DependentUpon>FrmStudent.cs</DependentUpon>

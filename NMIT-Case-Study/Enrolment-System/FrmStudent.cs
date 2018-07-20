@@ -10,7 +10,8 @@ namespace Enrolment_System
     public partial class FrmStudent : Form
     {
         // Declaring a member variable called _Student of type class student, as this is a class type it is a reference variable and allocates enough memory to hold an address to an object, is null unless instantiated
-        private ClsStudent _Student;
+        // V2 edit: the variable _Student must become protected because of inhertiance
+        protected ClsStudent _Student;
 
         // Form constructor
         public FrmStudent()
@@ -30,9 +31,10 @@ namespace Enrolment_System
         }
 
         // Update display method
-        private void UpdateDisplay()
+        // V2 edit: update display must become protected and virtual for inhertied forms to override them
+        protected virtual void UpdateDisplay()
         {
-            // Thie item in the text box is getting stored into the member variable in our class file and so on, in this case the ID variable
+            // The item in the text box is getting stored into the member variable in our class file and so on, in this case the ID variable
             TxtID.Text = _Student.ID;
             TxtName.Text = _Student.Name;
             DtpDOB.Value = _Student.DOB;
@@ -45,14 +47,21 @@ namespace Enrolment_System
         // Button ok method
         private void BtnOK_Click(object sender, EventArgs e)
         {
+            // Calling push data method
+            PushData();
+            // Setting the dialog result to ok, this closes the form and the show dialog method to return ok to the caller
+            DialogResult = DialogResult.OK;
+        }
+
+        // V2 edit: push data must become protected and virtual for inhertied forms to override them
+        protected virtual void PushData()
+        {
             // When the user clicks on ok it assigns the contents of the textboxes on the form to the student object properties
             _Student.ID = TxtID.Text;
             _Student.Name = TxtName.Text;
             _Student.DOB = DtpDOB.Value;
             // As balance is a numeric we need to convert it back
             _Student.Balance = Convert.ToDecimal(TxtBalance.Text);
-            // Setting the dialog result to ok, this closes the form and the show dialog method to return ok to the caller
-            DialogResult = DialogResult.OK;
         }
 
         // Button cancel method

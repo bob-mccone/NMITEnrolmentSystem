@@ -32,6 +32,7 @@
             this.BtnModifyStudent = new System.Windows.Forms.Button();
             this.BtnClose = new System.Windows.Forms.Button();
             this.LblStudentDetails = new System.Windows.Forms.Label();
+            this.CboStudentType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // BtnCreateStudent
@@ -73,11 +74,21 @@
             this.LblStudentDetails.TabIndex = 3;
             this.LblStudentDetails.Text = "-";
             // 
+            // CboStudentType
+            // 
+            this.CboStudentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CboStudentType.FormattingEnabled = true;
+            this.CboStudentType.Location = new System.Drawing.Point(137, 12);
+            this.CboStudentType.Name = "CboStudentType";
+            this.CboStudentType.Size = new System.Drawing.Size(187, 24);
+            this.CboStudentType.TabIndex = 4;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(336, 168);
+            this.Controls.Add(this.CboStudentType);
             this.Controls.Add(this.LblStudentDetails);
             this.Controls.Add(this.BtnClose);
             this.Controls.Add(this.BtnModifyStudent);
@@ -94,6 +105,7 @@
         private System.Windows.Forms.Button BtnModifyStudent;
         private System.Windows.Forms.Button BtnClose;
         private System.Windows.Forms.Label LblStudentDetails;
+        private System.Windows.Forms.ComboBox CboStudentType;
     }
 }
 
