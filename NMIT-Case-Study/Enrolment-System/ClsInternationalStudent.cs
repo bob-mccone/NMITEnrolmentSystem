@@ -20,6 +20,12 @@ namespace Enrolment_System
             // Return international student form
             return _Form.ShowDialog(this);
         }
+
+        // Overriding the type of student method in ClsStudent do that it returns Intl
+        protected override string TypeOfStudent()
+        {
+            return "Intl";
+        }
         // Member variables exclusive to international students
         private string _Country;
         private float _IELTS;

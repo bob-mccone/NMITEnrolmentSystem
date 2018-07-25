@@ -26,6 +26,9 @@ namespace Enrolment_System
 
         // Public abstract method, this returns a boolean or true/false as a signal of whether editing was successful, abstract methods don't have code
         public abstract bool ViewEdit();
+
+        // Protected abstract method that returns a string
+        protected abstract string TypeOfStudent();
         
         // Variables
         private string _ID;
@@ -40,9 +43,10 @@ namespace Enrolment_System
         public decimal Balance { get => _Balance; set => _Balance = value; }
         
         // Overrides standard class behaviour and returns a string
+        // V4 edit, As we have gone to a list we need to tab the data rather than put it on a new line
         public override string ToString()
         {
-            return _ID + "\n" + _Name + " " + _DOB.ToShortDateString() + "\n" + _Balance;
+            return _ID + "\t" + _Name + "\t" + TypeOfStudent();
         }
     }
 }

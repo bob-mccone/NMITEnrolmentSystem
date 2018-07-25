@@ -21,6 +21,12 @@ namespace Enrolment_System
             return _Form.ShowDialog(this);
         }
 
+        // Overriding the type of student method in ClsStudent do that it returns MOE
+        protected override string TypeOfStudent()
+        {
+            return "MOE";
+        }
+
         // Member variables exclusive to MOE students
         private decimal _LoanAmount;
         private bool _FullTime;

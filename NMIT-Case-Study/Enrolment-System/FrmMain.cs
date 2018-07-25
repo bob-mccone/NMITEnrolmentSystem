@@ -9,19 +9,15 @@ namespace Enrolment_System
     // Public partial class, meaning another file with additional code, Frm main inherits from form class
     public partial class FrmMain : Form
     {
-        // Declaring a member variable called _Student of type class student, as this is a class type it is a reference variable and allocates enough memory to hold an address to an object, is null unless instantiated
-        private ClsStudent _Student;
-        // V3 edit, no longer need the student form variables as they are npw handeled by the appripriate classes, student type/combo box is now handeled by ClsStudent
+        // V4 edit, As we have moved creating students over to the FrmStudentList we no longer need all that code in here, just code to open that form
+        private FrmStudentList _StudentListForm = new FrmStudentList();
 
         // Form constructor
         public FrmMain()
         {
             InitializeComponent();
-            // Initialise the combo box
-            // V3 edit, this is now handeled by ClsStudent
-            CboStudentType.DataSource = ClsStudent.StudentType;
-            CboStudentType.SelectedIndex = 0;
         }
+
         // Button close method
         private void BtnClose_Click(object sender, EventArgs e)
         {
@@ -29,62 +25,13 @@ namespace Enrolment_System
             Close();
         }
 
-        // Button create student method
-        private void BtnCreateStudent_Click(object sender, EventArgs e)
+        // Button manage students method
+        private void BtnManageStudents_Click(object sender, EventArgs e)
         {
-            // Calling create student method
-            CreateStudent();
-        }
-
-        // Button edit student method
-        // V3 edit, this is now accepting a student parameter, it assigns the new student to the member variable _Student if it is not null, also stops creating students when user clicks cancel
-        private void EditStudent(ClsStudent prStudent)
-        {
-            // if _student isn't null (empty) and user clicked on ok in the student form
-            if (prStudent != null && prStudent.ViewEdit())
-            {
-                // Assign prStudent as the _Student
-                _Student = prStudent;
-                // Display student details on the main form
-                LblStudentDetails.Text = "Student:\n" + _Student.ToString();
-            }
-        }
-
-        // Button modify student method
-        private void BtnModifyStudent_Click(object sender, EventArgs e)
-        {
-            // if student id isn't null
-            if (_Student != null)
-            {
-                // Calling edit student method
-                EditStudent(_Student);
-            }
-            else
-            {
-                // Display a message box called no student
-                DialogResult NoStudent = MessageBox.Show("Student doesn't exist, would you like to create one now?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                // If user clicked on yes
-                if (NoStudent == DialogResult.Yes)
-                {
-                    // Call create student method
-                    CreateStudent();
-                }
-                else
-                {
-                    // Closing the message box
-                    DialogResult = DialogResult.Cancel;
-                }
-            }
-        }
-
-        // Create student method
-        private void CreateStudent()
-        {
-            // V3 edit, since the responsibility of creating the appropriate student and form is now done by the student classes it is no longer here
-            // We pass the index user choice to the new factory method in ClsStudent, then pass the created student to the edit method
-            ClsStudent lcStudent = ClsStudent.NewStudent(CboStudentType.SelectedIndex);
-            // Calling edit student that opens the student form
-            EditStudent(lcStudent);
+            // Opening the student list form
+            _StudentListForm.ShowDialog();
+            // Displaying the total students and the total balance in currenct format, 0 is the student count, 1 is the total balance, we use the C to show the balance in the country specific currency format
+            LblStudentDetails.Text = string.Format("(0) Student(s)\nTotal Balance: (1:C)", ClsInstitute.StudentList.Count, ClsInstitute.TotalBalance());
         }
     }
 }
