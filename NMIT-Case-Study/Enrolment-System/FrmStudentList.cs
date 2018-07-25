@@ -30,7 +30,8 @@ namespace Enrolment_System
         private void UpdateDisplay()
         {
             LstStudents.DataSource = null;
-            LstStudents.DataSource = ClsInstitute.StudentList;
+            // V5 edit, because we are now using a dictionary we need to select the values column and convert it to a list before assigning it to the data source of the listbox
+            LstStudents.DataSource = ClsInstitute.StudentList.Values.ToList<ClsStudent>();
         }
 
         // Create student button
@@ -48,7 +49,8 @@ namespace Enrolment_System
             if (lcStudent != null && lcStudent.ViewEdit())
             {
                 // We add the student to the student list 
-                ClsInstitute.StudentList.Add(lcStudent);
+                // V5 edit, as we are using a dictionary this changes a little compared to the list one
+                ClsInstitute.StudentList.Add(lcStudent.ID, lcStudent);
                 // Then update the display to show the student in the list box
                 UpdateDisplay();
             }
@@ -113,6 +115,20 @@ namespace Enrolment_System
         // Button delete student
         private void BtnDelete_Click(object sender, EventArgs e)
         {
+            // Trying to find a student
+            ClsStudent lcStudent = (ClsStudent)LstStudents.SelectedItem;
+            // If list is empty
+            if (lcStudent == null)
+            {
+                // Display Message box
+                DialogResult CantDelete = MessageBox.Show("No students exist to delete", "Delete Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // User clicks ok
+                if (CantDelete == DialogResult.OK)
+                {
+                    // And messagebox closes
+                    return;
+                }
+            }
             // Display message box asking user if they want to delete
             DialogResult DeleteStudent = MessageBox.Show("You are about to delete a student, are you sure?", "Delete student", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             // If user clicks yes
@@ -129,9 +145,33 @@ namespace Enrolment_System
             // Find selected student
             ClsStudent lcStudent = (ClsStudent)LstStudents.SelectedItem;
             // Remove them
-            ClsInstitute.StudentList.Remove(lcStudent);
+            // V5 edit, as this is a dictionary we need to find the ID
+            ClsInstitute.StudentList.Remove(lcStudent.ID);
             // Then update the listbox
             UpdateDisplay();
+        }
+
+        // Button find student
+        private void BtnFindStudent_Click(object sender, EventArgs e)
+        {
+            // ClsStudent is a local variable lcStudent
+            ClsStudent lcStudent;
+            // Try and find the student
+            if (ClsInstitute.StudentList.TryGetValue(TxtFindStudentID.Text, out lcStudent))
+            {
+                LstStudents.SelectedItem = lcStudent;
+            }
+            else
+            {
+                // Else if the list box is empty display message asking if they would like to create one first
+                DialogResult EmptyList = MessageBox.Show("No student(s) exist, would you like to create one now?", "Find Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                // If yes is selected
+                if (EmptyList == DialogResult.Yes)
+                {
+                    // Create student
+                    CreateStudent();
+                }
+            }
         }
     }
 }

@@ -41,12 +41,13 @@ namespace Enrolment_System
         public string Name { get => _Name; set => _Name = value; }
         public DateTime DOB { get => _DOB; set => _DOB = value; }
         public decimal Balance { get => _Balance; set => _Balance = value; }
-        
+
         // Overrides standard class behaviour and returns a string
         // V4 edit, As we have gone to a list we need to tab the data rather than put it on a new line
+        // V5 edit, we want to display name first as we are sorting by name
         public override string ToString()
         {
-            return _ID + "\t" + _Name + "\t" + TypeOfStudent();
+            return _Name + "\t" + _ID + "\t" + TypeOfStudent();
         }
     }
 }

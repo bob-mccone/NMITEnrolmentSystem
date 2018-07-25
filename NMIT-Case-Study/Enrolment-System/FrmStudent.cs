@@ -49,10 +49,16 @@ namespace Enrolment_System
         // Button ok method
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            // Calling push data method
-            PushData();
-            // Setting the dialog result to ok, this closes the form and the show dialog method to return ok to the caller
-            DialogResult = DialogResult.OK;
+            // V5 edit, as dictionarys are capable of detecting existing keys we might as well use it, here we check if the ID exists
+            if (TxtID.Enabled && ClsInstitute.StudentList.ContainsKey(TxtID.Text))
+                MessageBox.Show("Student with that ID already exists", "Duplicate ID");
+            else
+            {
+                // Calling push data method
+                PushData();
+                // Setting the dialog result to ok, this closes the form and the show dialog method to return ok to the caller
+                DialogResult = DialogResult.OK;
+            }
         }
 
         // V2 edit: push data must become protected and virtual for inhertied forms to override them
