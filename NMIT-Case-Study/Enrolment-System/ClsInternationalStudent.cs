@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 // Project name
 namespace Enrolment_System
 {
+    // Saving
+    [Serializable]
     // Making ClsInternationalStudent inherit from ClsStudent as we inherited the forms and ClsInternationalStudent needs that info
     class ClsInternationalStudent : ClsStudent
     {

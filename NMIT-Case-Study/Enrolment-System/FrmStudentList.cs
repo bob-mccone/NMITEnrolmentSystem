@@ -161,9 +161,10 @@ namespace Enrolment_System
             {
                 LstStudents.SelectedItem = lcStudent;
             }
-            else
+            // If the listbox is empty
+            else if (LstStudents == null)
             {
-                // Else if the list box is empty display message asking if they would like to create one first
+                // Display message asking if they would like to create one first
                 DialogResult EmptyList = MessageBox.Show("No student(s) exist, would you like to create one now?", "Find Error", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 // If yes is selected
                 if (EmptyList == DialogResult.Yes)
@@ -172,6 +173,13 @@ namespace Enrolment_System
                     CreateStudent();
                 }
             }
+        }
+
+        // When form loads
+        private void FrmStudentList_Load(object sender, EventArgs e)
+        {
+            // Displaying student details that we have loaded
+            UpdateDisplay();
         }
     }
 }

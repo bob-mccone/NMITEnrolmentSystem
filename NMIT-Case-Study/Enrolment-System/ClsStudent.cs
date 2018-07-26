@@ -5,6 +5,8 @@ using System;
 // Project name
 namespace Enrolment_System
 {
+    // Saving
+    [Serializable]
     // public class class student
     // V2 edit, this is now abstract, basically there are no ClsStudent objects
     public abstract class ClsStudent

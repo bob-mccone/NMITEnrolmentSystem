@@ -2,13 +2,17 @@
 // Usings
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
 // Project name
 namespace Enrolment_System
 {
+    // Saving
+    [Serializable]
     // Class institute
     class ClsInstitute
     {
@@ -29,6 +33,32 @@ namespace Enrolment_System
             foreach (ClsStudent lcStudent in _StudentList.Values) lcTotal += lcStudent.Balance;
             // Then return the total balance of all the students
             return lcTotal;
+        }
+
+        // Saving method
+        public static void Save()
+        {
+            // Declaring and instantiating a file stream object that will create a file called Students.dat
+            using (FileStream lcFileStream = new FileStream("Students.dat", FileMode.Create))
+            {
+                // Declaring and instantiate the binary formatter, this is wrapped in a using clause which ensures that the stream object object is closed and disposed when finished even if an exception occurred
+                BinaryFormatter lcFormatter = new BinaryFormatter();
+                // Saving the student list
+                lcFormatter.Serialize(lcFileStream, _StudentList);
+            }
+        }
+
+        // Retrieving method
+        public static void Retrieve()
+        {
+            // Declaring and instantiating a file stream object that will create a file called Students.dat
+            using (FileStream lcFileStream = new FileStream("Students.dat", FileMode.Open))
+            {
+                // Declaring and instantiate the binary formatter, this is wrapped in a using clause which ensures that the stream object object is closed and disposed when finished even if an exception occurred
+                BinaryFormatter lcFormatter = new BinaryFormatter();
+                // Retrieving the student list
+                _StudentList = (Dictionary<string, ClsStudent>)lcFormatter.Deserialize(lcFileStream);
+            }
         }
     }
 }
