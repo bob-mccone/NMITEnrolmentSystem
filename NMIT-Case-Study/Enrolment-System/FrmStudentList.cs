@@ -24,14 +24,69 @@ namespace Enrolment_System
             // V4 edit, combo box is now on the student form list
             CboStudentType.DataSource = ClsStudent.StudentType;
             CboStudentType.SelectedIndex = 0;
+            // Sort combo box
+            CboSortChoice.DataSource = _SortStrings;
+            CboSortChoice.SelectedIndex = 0;
         }
+
+        // DOB comparer, Normally you would put 1 class per source code file but as this is quite small and FrmStudentList is the only one depending on it we can do it this way
+        // we are implementing an interface rather than inheriting as it is an interface
+        class ClsDOBComparer : IComparer<ClsStudent>
+        {
+            // Comparing the 2 students to find out the order
+            public int Compare(ClsStudent prStudentX, ClsStudent prStudentY)
+            {
+                // Creating a variable lcDOB, we want to sort via DOB then name if they have same DOB
+                var lcDOB = prStudentX.DOB.Date.CompareTo(prStudentY.DOB.Date);
+                // if lcDOB is not empty 
+                if (lcDOB != 0)
+                {
+                    // Sort by DOB
+                    return lcDOB;
+                }
+                else
+                {
+                    // Then sort by name
+                    return prStudentX.Name.CompareTo(prStudentY.Name);
+                }
+            }
+        }
+
+        // Name comparer, Normally you would put 1 class per source code file but as this is quite small and FrmStudentList is the only one depending on it we can do it this way
+        // we are implementing an interface rather than inheriting as it is an interface
+        class ClsNameComparer : IComparer<ClsStudent>
+        {
+            // Comparing the 2 students to find out the order
+            public int Compare(ClsStudent prStudentX, ClsStudent prStudentY)
+            {
+                // Creating a variable lcName, we want to sort via name then DOB if they have same name
+                var lcName = prStudentX.Name.CompareTo(prStudentY.Name);
+                // If lcName is not empty
+                if (lcName != 0)
+                    // Sort by name
+                    return lcName;
+                else
+                    // Then sort by DOB
+                    return prStudentX.DOB.Date.CompareTo(prStudentY.DOB.Date);
+            }
+        }
+
+        // Creating an array of comparers
+        private IComparer<ClsStudent>[] _Comparer = { new ClsNameComparer(), new ClsDOBComparer() };
+
+        // Corresponding array of display strings
+        private readonly string[] _SortStrings = { "Name", "DOB" };
 
         // Private void method update display, refreshes the listbox, easiest way to do this is to assign a (business) list to the data source, when we clear the data source we then assign the student list from the institute class
         private void UpdateDisplay()
         {
-            LstStudents.DataSource = null;
-            // V5 edit, because we are now using a dictionary we need to select the values column and convert it to a list before assigning it to the data source of the listbox
-            LstStudents.DataSource = ClsInstitute.StudentList.Values.ToList<ClsStudent>();
+            // as we are now using sorting our updateDisplay code needs to change
+            // Declaring a new student list variable and assigning it to the value column of the institute student list dictionary
+            List<ClsStudent> lcStudentList = ClsInstitute.StudentList.Values.ToList();
+            // Calling the sort method and passing the appropriate comparer from the comparer array
+            lcStudentList.Sort(_Comparer[CboSortChoice.SelectedIndex]);
+            // Now we assign the sorted student list to the listbox data source
+            LstStudents.DataSource = lcStudentList;
         }
 
         // Create student button
@@ -179,6 +234,13 @@ namespace Enrolment_System
         private void FrmStudentList_Load(object sender, EventArgs e)
         {
             // Displaying student details that we have loaded
+            UpdateDisplay();
+        }
+
+        // Everytime the user selects a different option
+        private void CboSortChoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Call UpdateDisplay
             UpdateDisplay();
         }
     }

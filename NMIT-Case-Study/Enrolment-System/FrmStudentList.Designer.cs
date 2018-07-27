@@ -30,7 +30,7 @@
         {
             this.LblID = new System.Windows.Forms.Label();
             this.LblName = new System.Windows.Forms.Label();
-            this.LblType = new System.Windows.Forms.Label();
+            this.LblDOB = new System.Windows.Forms.Label();
             this.LstStudents = new System.Windows.Forms.ListBox();
             this.BtnClose = new System.Windows.Forms.Button();
             this.CboStudentType = new System.Windows.Forms.ComboBox();
@@ -39,12 +39,14 @@
             this.BtnDelete = new System.Windows.Forms.Button();
             this.BtnFindStudent = new System.Windows.Forms.Button();
             this.TxtFindStudentID = new System.Windows.Forms.TextBox();
+            this.CboSortChoice = new System.Windows.Forms.ComboBox();
+            this.LblSortBy = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // LblID
             // 
             this.LblID.AutoSize = true;
-            this.LblID.Location = new System.Drawing.Point(110, 9);
+            this.LblID.Location = new System.Drawing.Point(110, 41);
             this.LblID.Name = "LblID";
             this.LblID.Size = new System.Drawing.Size(21, 17);
             this.LblID.TabIndex = 0;
@@ -53,35 +55,34 @@
             // LblName
             // 
             this.LblName.AutoSize = true;
-            this.LblName.Location = new System.Drawing.Point(12, 9);
+            this.LblName.Location = new System.Drawing.Point(12, 41);
             this.LblName.Name = "LblName";
             this.LblName.Size = new System.Drawing.Size(45, 17);
             this.LblName.TabIndex = 1;
             this.LblName.Text = "Name";
             // 
-            // LblType
+            // LblDOB
             // 
-            this.LblType.AutoSize = true;
-            this.LblType.Location = new System.Drawing.Point(291, 9);
-            this.LblType.Name = "LblType";
-            this.LblType.Size = new System.Drawing.Size(40, 17);
-            this.LblType.TabIndex = 2;
-            this.LblType.Text = "Type";
+            this.LblDOB.AutoSize = true;
+            this.LblDOB.Location = new System.Drawing.Point(291, 41);
+            this.LblDOB.Name = "LblDOB";
+            this.LblDOB.Size = new System.Drawing.Size(38, 17);
+            this.LblDOB.TabIndex = 2;
+            this.LblDOB.Text = "DOB";
             // 
             // LstStudents
             // 
             this.LstStudents.FormattingEnabled = true;
             this.LstStudents.ItemHeight = 16;
-            this.LstStudents.Location = new System.Drawing.Point(12, 29);
+            this.LstStudents.Location = new System.Drawing.Point(12, 61);
             this.LstStudents.Name = "LstStudents";
             this.LstStudents.Size = new System.Drawing.Size(357, 116);
-            this.LstStudents.Sorted = true;
             this.LstStudents.TabIndex = 3;
             this.LstStudents.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LstStudents_MouseDoubleClick);
             // 
             // BtnClose
             // 
-            this.BtnClose.Location = new System.Drawing.Point(294, 219);
+            this.BtnClose.Location = new System.Drawing.Point(294, 251);
             this.BtnClose.Name = "BtnClose";
             this.BtnClose.Size = new System.Drawing.Size(75, 28);
             this.BtnClose.TabIndex = 4;
@@ -93,14 +94,14 @@
             // 
             this.CboStudentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CboStudentType.FormattingEnabled = true;
-            this.CboStudentType.Location = new System.Drawing.Point(182, 185);
+            this.CboStudentType.Location = new System.Drawing.Point(182, 217);
             this.CboStudentType.Name = "CboStudentType";
             this.CboStudentType.Size = new System.Drawing.Size(187, 24);
             this.CboStudentType.TabIndex = 7;
             // 
             // BtnModifyStudent
             // 
-            this.BtnModifyStudent.Location = new System.Drawing.Point(12, 219);
+            this.BtnModifyStudent.Location = new System.Drawing.Point(12, 251);
             this.BtnModifyStudent.Name = "BtnModifyStudent";
             this.BtnModifyStudent.Size = new System.Drawing.Size(119, 28);
             this.BtnModifyStudent.TabIndex = 6;
@@ -110,7 +111,7 @@
             // 
             // BtnCreateStudent
             // 
-            this.BtnCreateStudent.Location = new System.Drawing.Point(12, 185);
+            this.BtnCreateStudent.Location = new System.Drawing.Point(12, 217);
             this.BtnCreateStudent.Name = "BtnCreateStudent";
             this.BtnCreateStudent.Size = new System.Drawing.Size(119, 28);
             this.BtnCreateStudent.TabIndex = 5;
@@ -120,7 +121,7 @@
             // 
             // BtnDelete
             // 
-            this.BtnDelete.Location = new System.Drawing.Point(137, 219);
+            this.BtnDelete.Location = new System.Drawing.Point(137, 251);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(75, 28);
             this.BtnDelete.TabIndex = 8;
@@ -130,7 +131,7 @@
             // 
             // BtnFindStudent
             // 
-            this.BtnFindStudent.Location = new System.Drawing.Point(12, 151);
+            this.BtnFindStudent.Location = new System.Drawing.Point(12, 183);
             this.BtnFindStudent.Name = "BtnFindStudent";
             this.BtnFindStudent.Size = new System.Drawing.Size(119, 28);
             this.BtnFindStudent.TabIndex = 9;
@@ -140,16 +141,36 @@
             // 
             // TxtFindStudentID
             // 
-            this.TxtFindStudentID.Location = new System.Drawing.Point(182, 157);
+            this.TxtFindStudentID.Location = new System.Drawing.Point(182, 189);
             this.TxtFindStudentID.Name = "TxtFindStudentID";
             this.TxtFindStudentID.Size = new System.Drawing.Size(187, 22);
             this.TxtFindStudentID.TabIndex = 10;
+            // 
+            // CboSortChoice
+            // 
+            this.CboSortChoice.FormattingEnabled = true;
+            this.CboSortChoice.Location = new System.Drawing.Point(248, 12);
+            this.CboSortChoice.Name = "CboSortChoice";
+            this.CboSortChoice.Size = new System.Drawing.Size(121, 24);
+            this.CboSortChoice.TabIndex = 11;
+            this.CboSortChoice.SelectedIndexChanged += new System.EventHandler(this.CboSortChoice_SelectedIndexChanged);
+            // 
+            // LblSortBy
+            // 
+            this.LblSortBy.AutoSize = true;
+            this.LblSortBy.Location = new System.Drawing.Point(184, 15);
+            this.LblSortBy.Name = "LblSortBy";
+            this.LblSortBy.Size = new System.Drawing.Size(58, 17);
+            this.LblSortBy.TabIndex = 12;
+            this.LblSortBy.Text = "Sort By:";
             // 
             // FrmStudentList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 262);
+            this.ClientSize = new System.Drawing.Size(381, 288);
+            this.Controls.Add(this.LblSortBy);
+            this.Controls.Add(this.CboSortChoice);
             this.Controls.Add(this.TxtFindStudentID);
             this.Controls.Add(this.BtnFindStudent);
             this.Controls.Add(this.BtnDelete);
@@ -158,7 +179,7 @@
             this.Controls.Add(this.BtnCreateStudent);
             this.Controls.Add(this.BtnClose);
             this.Controls.Add(this.LstStudents);
-            this.Controls.Add(this.LblType);
+            this.Controls.Add(this.LblDOB);
             this.Controls.Add(this.LblName);
             this.Controls.Add(this.LblID);
             this.Name = "FrmStudentList";
@@ -173,7 +194,7 @@
 
         private System.Windows.Forms.Label LblID;
         private System.Windows.Forms.Label LblName;
-        private System.Windows.Forms.Label LblType;
+        private System.Windows.Forms.Label LblDOB;
         private System.Windows.Forms.ListBox LstStudents;
         private System.Windows.Forms.Button BtnClose;
         private System.Windows.Forms.ComboBox CboStudentType;
@@ -182,5 +203,7 @@
         private System.Windows.Forms.Button BtnDelete;
         private System.Windows.Forms.Button BtnFindStudent;
         private System.Windows.Forms.TextBox TxtFindStudentID;
+        private System.Windows.Forms.ComboBox CboSortChoice;
+        private System.Windows.Forms.Label LblSortBy;
     }
 }

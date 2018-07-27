@@ -47,9 +47,10 @@ namespace Enrolment_System
         // Overrides standard class behaviour and returns a string
         // V4 edit, As we have gone to a list we need to tab the data rather than put it on a new line
         // V5 edit, we want to display name first as we are sorting by name
+        // V7 edit, as we are sorting via name and DOB we display the students DOB
         public override string ToString()
         {
-            return _Name + "\t" + _ID + "\t" + TypeOfStudent();
+            return _Name + "\t" + _ID + "\t" + _DOB.ToShortDateString();
         }
     }
 }
