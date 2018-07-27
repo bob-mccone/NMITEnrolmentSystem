@@ -114,6 +114,11 @@ namespace Enrolment_System
         // Modify student button
         private void BtnModifyStudent_Click(object sender, EventArgs e)
         {
+            StudentEdit();
+        }
+
+        private void StudentEdit()
+        {
             // Locating the student that the user has highlighted
             ClsStudent lcStudent = (ClsStudent)LstStudents.SelectedItem;
             // If student exists and is selected
@@ -157,7 +162,7 @@ namespace Enrolment_System
         private void LstStudents_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             // Edit student
-            EditStudent();
+            StudentEdit();
         }
 
         // Button close
